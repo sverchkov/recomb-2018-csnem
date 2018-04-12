@@ -308,4 +308,39 @@
 
 %%% FRAMEBREAK %%%
 
+\begin{frame}{Context-specific nested effect model (CSNEM)}
+\centering
+\begin{tikzpicture}[very thick, ampersand replacement=\&]
+
+ \node[var] (a) at (-5mm,5mm) {A};
+ \node[var] (b1) at (5mm,-5mm) {B};
+
+ \node[var] (a) {a};
+ \node[var, below right=of a] (b) {b};
+ \node[var, above right=of b] (b2) {b};
+ 
+  \matrix (mx) [matrix of nodes, below=of b] {
+  \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
+  $a\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& \& \\
+  $b\Delta$ \& \& \& \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
+ };
+
+ \draw[link] (a) to (b);
+ 
+ \draw[link] (a) to (mx-1-2);
+ \draw[link] (a) to (mx-1-3);
+ \draw[link] (a) to (mx-1-4);
+ \draw[link] (b) to (mx-1-5);
+ \draw[link] (b) to (mx-1-6);
+ \draw[link] (b) to (mx-1-7);
+ \draw[link] (b2) to (mx-1-8);
+ \draw[link] (b2) to (mx-1-9);
+
+\end{tikzpicture}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+%%% FRAMEBREAK %%%
+
 \end{document}
