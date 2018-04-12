@@ -125,8 +125,43 @@
       \titlepage
     \end{frame}
   }
+
+\begin{frame}{Context-specific biological networks}
+\centering
+\begin{tikzpicture}[very thick, ampersand replacement=\&]
+
+ \node[var] (a) at (0,5mm) {A};
+ \node[var] (b1) at (-1cm,-5mm) {B};
+ \node[var] (c) at (1cm,-5mm) {C};
+ \node[var] (b2) at (4cm,0) {B};
+
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-2cm) {
+   $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ };
+ 
+ \matrix (ml) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (4cm, -2cm) {
+   $e_7$ \& $e_8$ \\
+ };
+ 
+ \draw[link] (a) to (b1);
+ \draw[link] (a) to (c);
+ 
+ \draw[link] (b1) to (mr-1-1);
+ \draw[link] (b1) to (mr-1-2);
+ \draw[link] (a) to (mr-1-3);
+ \draw[link] (a) to (mr-1-4);
+ \draw[link] (c) to (mr-1-5);
+ \draw[link] (c) to (mr-1-6);
+ \draw[link] (b2) to (ml-1-1);
+ \draw[link] (b2) to (ml-1-2);
+ 
+ \node[draw, ellipse, fit=(b2) (ml),decoration={snake, amplitude=0.5mm},decorate] (organelle) {};
+ \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] {};
+
+\end{tikzpicture}
+\end{frame}
   
-  %%% FRAMEBREAK %%%
+%%% FRAMEBREAK %%%
 
 \begin{frame}{Uncovering biological networks}
   \centering
@@ -172,7 +207,7 @@
       \node[anchor=west, ActionRed] at (c.east) {$\Delta$};
     }
     
-    \node[draw, ellipse, very thick, fit=(a) (b) (c) (es)] (cell) {};
+    \node[draw, ellipse, very thick, fit=(a) (b) (c) (es), double, double distance=1mm] (cell) {};
 
   \matrix (d) [below=5mm of cell, matrix of nodes, nodes={}] {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
@@ -194,11 +229,6 @@
 \end{frame}
 
 %%% FRAMEBREAK
-
-\begin{frame}{Context-specific networks}
-\end{frame}
-
-%%% FRAMEBREAK %%%
 
 \begin{frame}{High-dimensional knockout screens}
 
@@ -312,35 +342,355 @@
 \centering
 \begin{tikzpicture}[very thick, ampersand replacement=\&]
 
- \node[var] (a) at (-5mm,5mm) {A};
- \node[var] (b1) at (5mm,-5mm) {B};
+ \node[var] (a) at (0,5mm) {A};
+ \node[var] (b1) at (-1cm,-5mm) {B};
+ \node[var] (c) at (1cm,-5mm) {C};
+ \node[var] (b2) at (4cm,0) {B};
 
- \node[var] (a) {a};
- \node[var, below right=of a] (b) {b};
- \node[var, above right=of b] (b2) {b};
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-2cm) {
+   $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ };
  
-  \matrix (mx) [matrix of nodes, below=of b] {
+ \matrix (ml) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (4cm, -2cm) {
+   $e_7$ \& $e_8$ \\
+ };
+ 
+ \draw[link] (a) to (b1);
+ \draw[link] (a) to (c);
+ 
+ \draw[link] (b1) to (mr-1-1);
+ \draw[link] (b1) to (mr-1-2);
+ \draw[link] (a) to (mr-1-3);
+ \draw[link] (a) to (mr-1-4);
+ \draw[link] (c) to (mr-1-5);
+ \draw[link] (c) to (mr-1-6);
+ \draw[link] (b2) to (ml-1-1);
+ \draw[link] (b2) to (ml-1-2);
+ 
+ \node[draw, ellipse, fit=(b2) (ml),decoration={snake, amplitude=0.5mm},decorate] (organelle) {};
+ \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] (cell) {};
+
+ \uncover<2->{
+ \matrix (mx) [matrix of nodes, fill=white, below=2cm of cell.center] {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
   $a\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& \& \\
-  $b\Delta$ \& \& \& \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
+  $b\Delta$ \& |[fill=black]| \& |[fill=black]| \& \& \& \& \& |[fill=black]| \& |[fill=black]| \\
+  $c\Delta$ \& \& \& \& \& |[fill=black]| \& |[fill=black]| \& \& \\
+ };
+ }
+
+
+\end{tikzpicture}
+\end{frame}
+
+%%% FRAMEBREAK %%% TODO:CONTINUE FROM HERE
+
+%%% FRAMEBREAK %%%
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{CSNEM as a mixture of NEMs}
+\centering
+\begin{tikzpicture}[very thick, ampersand replacement=\&]
+
+ \node[var] (a) {a};
+ \node[var, below right=1 and 1 of a] (b) {b};
+ 
+  \matrix (mx1) [matrix of nodes, below=2 of a] {
+  \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+  $a\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
+  $b\Delta$ \& \& \& \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
  };
 
+  \matrix (mx2) [matrix of nodes, right=of mx1] {
+  \& $e_7$ \& $e_8$ \\
+  $a\Delta$ \& \& \\
+  $b\Delta$ \& |[fill=black]| \& |[fill=black]| \\
+ };
+
+ \node[var, above=2 of mx2] (b2) {b};
+
  \draw[link] (a) to (b);
- 
- \draw[link] (a) to (mx-1-2);
- \draw[link] (a) to (mx-1-3);
- \draw[link] (a) to (mx-1-4);
- \draw[link] (b) to (mx-1-5);
- \draw[link] (b) to (mx-1-6);
- \draw[link] (b) to (mx-1-7);
- \draw[link] (b2) to (mx-1-8);
- \draw[link] (b2) to (mx-1-9);
+ \draw[link] (a) to (mx1-1-2);
+ \draw[link] (a) to (mx1-1-3);
+ \draw[link] (a) to (mx1-1-4);
+ \draw[link] (b) to (mx1-1-5);
+ \draw[link] (b) to (mx1-1-6);
+ \draw[link] (b) to (mx1-1-7);
+ \draw[link] (b2) to (mx2-1-2);
+ \draw[link] (b2) to (mx2-1-3);
+
+ \node[draw, fit=(a)(mx1)] (nem1) {};
+ \node[draw, fit=(b2)(mx2)] (nem2) {};
+
+ \node[anchor=north] at (nem1.south) {$\Gamma^1, \Theta^1$};
+ \node[anchor=north] at (nem2.south) {$\Gamma^2, \Theta^2$};
 
 \end{tikzpicture}
 \end{frame}
 
 %%% FRAMEBREAK %%%
 
+\begin{frame}{Likelihood formulation}
+\[
+L_\text{CSNEM}(\Gamma, \Theta) = \prod_{i=1}^k L_\text{NEM}(\Gamma^i, \Theta^i)
+\]
+\pause
+\[
+\log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^i ) + c
+\]
+\pause
+\[ \cdots \]
+\[
+\log L_\text{CSNEM}(\Gamma, \Theta) = \mathsf{tr}( \Gamma \Theta R^* ) + c^*
+\]
+\end{frame}
+
 %%% FRAMEBREAK %%%
+
+\begin{frame}{Likelihood of a $k$-CSNEM}
+\[
+L_\text{CSNEM}( \Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k )
+ = \prod_{i=1}^k L_\text{NEM}( \Gamma^i, \Theta^i ) \]
+\pause
+\[
+\log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^i ) + c
+\]
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Likelihood of a $k$-CSNEM}
+\begin{multline*}
+\log L_\text{CSNEM}( \Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k )
+ = \\ \text{trace}\left(
+ \underbrace{\begin{bmatrix}
+	\Gamma^1 & 0 & \cdots & 0 \\
+	0 & \Gamma^2 & & \vdots \\
+	\vdots & & \ddots & 0 \\
+	0 & \cdots & 0 & \Gamma^k
+ \end{bmatrix}}_{\text{Block diagonal } \Gamma}
+ \underbrace{\begin{bmatrix}
+	\Theta^1 & 0 & \cdots & 0 \\
+	0 & \Theta^2 & & \vdots \\
+	\vdots & & \ddots & 0 \\
+	0 & \cdots & 0 & \Theta^k
+ \end{bmatrix}}_{\text{``Big'' } (|\mathcal A|k \times |\mathcal E|)\quad \Theta}
+ \underbrace{\begin{bmatrix}
+	R & R & \cdots & R
+ \end{bmatrix}}_{k \text{ copies}} \right) + c
+\end{multline*}
+\end{frame}
+
+\begin{frame}{Learning approach}
+Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning problem.
+\[
+\log L( \Gamma \Theta ) + \underbrace{\sum_{(a,b) \in \mathcal A \times \mathcal A} \log \mathbb P(\Gamma_{a,b})}_{\text{edge-wise prior}} + \log \mathbb P( \Theta )
+\]
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+% Maybe talk about how the simulation works
+% > Mixture of random networks (varying density and k)
+% > Beta parameter for noise
+
+\begin{frame}{Evaluation on simulated data}
+\begin{itemize}[<+->]
+ \item \small For each of $n_\mathcal{A} \in \{3,5,10,20\}$ actions, $k_\text{true} \in \{1,\ldots, 5\}$, $\beta \in \{1, 2, 5, 10 \}$
+ \item Make a generative $k_\text{true}$-CSNEM model
+ \begin{itemize}
+  \item Generate $k_\text{true}$ random graphs of $n_\mathcal{A}$ actions.
+  \item For each of 1000 effects, with probability 0.7 attach the effect to one of the actions in one of the graphs.
+ \end{itemize}
+ \item Generate an $n_\mathcal{A} \times 1000$ binary effect matrix $F_\text{true}$ using the CSNEM model
+ \item Generate a log-odds matrix $R$ from $F_\text{true}$ by sampling from a $\log \frac{ \mathsf{Beta}(\beta,1) }{ \mathsf{Beta}(1,\beta) }$ distribution where $F_\text{true}$ is 1 and a $\log \frac{ \mathsf{Beta}(1,\beta) }{ \mathsf{Beta}(\beta,1) }$ distribution where $F_\text{true}$ is 0.
+ \item For $k_\text{learning} \in \{ 1, \ldots 8 \}$, learn a $k_\text{true}$-CSNEM model from R
+ \item Compare the predicted binary effect matrix of $F_\text{learning}$ to the ground truth effect matrix $F_\text{true}$
+ \item Compare the graphs learned (by using best-matches of each action's context).
+\end{itemize}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Evaluation on simulated data}
+%\includegraphics[width=\textwidth]{effect-for-pres}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Saccharomyces cerevisiae salt stress data}
+\begin{itemize}
+ \item Wild type strains and 28 single-gene knockout strains
+ \item Gene expression measured by microarray
+  \begin{itemize}
+   \item \normalsize Measurement without salt treatment
+   \item \normalsize Measurement 30 minutes after 0.7 M NaCl treatment
+  \end{itemize}
+ \item Change in response:
+\end{itemize}
+\[
+ \log_2 \left( \frac{\Delta \text{ strain treated}}{\Delta \text{ strain untreated}} \bigg/ \frac{\text{WT strain treated}}{\text{WT strain untreated}} \right)
+\]
+\vfill
+{\tiny \fullcite{berry2008stress} \\ \fullcite{lee2011dynamic} \\}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{}\small  
+  \begin{tikzpicture}
+    \path pic {colormap};
+  \end{tikzpicture}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Network learned from the S.\ cerevisiae data}
+%\includegraphics[width=\textwidth]{actions-only-for-slides}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Network learned from the S.\ cerevisiae data}
+%\includegraphics[width=\textwidth,trim={0 8.3in 0 0},clip]{hog1-nodes}
+
+\vfill
+
+Hog1 is a master regulator of osmotic stress response
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Network learned from the S.\ cerevisiae data}
+%\includegraphics[width=\textwidth,trim={0 8.3in 0 0},clip]{ck-nodes}
+
+\vfill
+
+Hog1 and CK complex subunits (Cka2, Ckb1/2) interact, regulate overlapping sets of genes
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Network learned from the S.\ cerevisiae data}
+%\includegraphics[width=\textwidth,trim={0 8in 0 0},clip]{msn2-nodes}
+
+\vfill
+
+Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Network learned from the S.\ cerevisiae data}
+%\includegraphics[width=\textwidth,trim={0 8in 0 0},clip]{rim101-nodes}
+
+\vfill
+
+YGR122W is required for processing Rim101
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Effect group GO term enrichments}
+\centering
+%\includegraphics[width=0.8\textwidth]{go-terms-csnem-presentation}
+\end{frame}
+
+\begin{frame}{Effect group GO term enrichments}
+\centering
+%\includegraphics[width=\textwidth]{go-terms-dense-csnem-presentation}
+\end{frame}
+
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Context-wise GO term enrichments}
+\centering
+%\includegraphics{go-term-comparison-contexts-h}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Conclusions}
+ \begin{itemize}
+  \item Simulations show that
+  \begin{itemize}
+   \item context-specificity is recoverable, and
+   \item a context-specific model is necessary when the data-generating process is context-specific.
+  \end{itemize}
+  \item Application to salt-stress data shows
+  \begin{itemize}
+   \item context-specific effect groups capture meaningful GO categories, and
+   \item the learned CSNEM aligns with known biology.
+  \end{itemize}
+ \end{itemize}
+ \pause
+ \begin{block}{Acknowledgments}
+   Mark Craven, Audrey P. Gash, Elisha Yi-Hsuan Ho %\\
+%   CIBM, Grant T15 LM0077359 from the National Library of Medicine, National~Institutes~of~Health
+ \end{block}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Synthesis and identifiability}
+\centering
+\begin{tikzpicture}[very thick, ampersand replacement=\&]
+	\node (n) at (9em, 8em) {\begin{tikzpicture}
+		\matrix (n1) [matrix of nodes, row sep=0.5em] {
+			Hog1 \& \\
+			\& Cka2 \\
+			Ckb12 \& \\
+		};
+		\draw[->] (n1-1-1) -- (n1-2-2);
+
+		\matrix (n2) [right=of n1, matrix of nodes, row sep=0.5em] {
+			Hog1 \& \\
+			\& Cka2 \\
+			Ckb12 \& \\
+		};
+		\draw[->] (n2-1-1) -- (n2-3-1);
+		\draw[->] (n2-2-2) -- (n2-3-1);
+
+		\matrix (n3) [right=of n2, matrix of nodes, row sep=0.5em] {
+			Hog1 \& \\
+			\& Cka2 \\
+			Ckb12 \& \\
+		};
+		%\draw[->] (n3-1-1) -- (n3-3-1);
+		\node [fit=(n1),draw] {};
+		\node [fit=(n2),draw] {};
+		\node [fit=(n3),draw] {};
+	\end{tikzpicture}};
+	%\node [anchor=south east] at (n.north west) {(a)};
+	
+	\node (m) at (0,0) {\begin{tikzpicture}
+		\node (hog1) at (4em,6em) {Hog1};
+		\node (cka2) at (8em,6em) {Cka2};
+		\node (cka2-2) at (0,3em) {Cka2 [Hog1]};
+		\node (ckb12) at (10em,3em) {Ckb12}; 
+		\node (ckb12-2) at (6em,0) {Ckb12 [Hog1 Cka2]};
+		\draw[->] (hog1) -- (cka2-2);
+		\draw[->] (hog1) -- (ckb12-2);
+		\draw[->] (cka2) -- (ckb12-2);
+	\end{tikzpicture}};
+	%\node at (m.north west) {(b)};
+		
+	\node (s) at (18em, 0) {\begin{tikzpicture}
+		\node (hog1) at (0,6em) {$\{ \text{Hog1} \}$};
+		\node (cka2) at (4em,6em)  {$\{ \text{Cka2} \}$};
+		\node (ckb12) at (8em,6em) {$\{ \text{Ckb12} \}$};
+		\node (hog1-cka2) at (1em,3em) {$\{ \text{Hog1}, \text{Cka2} \}$};
+		\node (all) at (3em,0) {$\{ \text{Hog1}, \text{Cka2}, \text{Ckb12} \}$};
+		\draw[->] (hog1) -- (hog1-cka2);
+		\draw[->] (cka2) -- (hog1-cka2);
+		\draw[->] (hog1-cka2) -- (all);
+		\draw[->] (ckb12) -- (all);
+	\end{tikzpicture}};
+	%\node at (s.north west) {(c)};
+	
+\end{tikzpicture}
+\end{frame}
 
 \end{document}
