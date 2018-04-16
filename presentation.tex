@@ -347,43 +347,133 @@
  \node[var] (c) at (1cm,-5mm) {C};
  \node[var] (b2) at (4cm,0) {B};
 
- \matrix (mr) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-2cm) {
-   $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20, onslide=<3>{white,fill=ActionRed}}, column sep=0.5em] at (0,-2cm) {
+   |[onslide=<4>{white,fill=ActionRed}]| $e_1$ \& |[onslide=<4>{white,fill=ActionRed}]| $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
  };
  
- \matrix (ml) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (4cm, -2cm) {
+ \matrix (ml) [matrix of nodes, nodes={fill=black!20, onslide=<4>{white,fill=ActionRed}}, column sep=0.5em] at (4cm, -2cm) {
    $e_7$ \& $e_8$ \\
  };
  
- \draw[link] (a) to (b1);
- \draw[link] (a) to (c);
+ \draw[link,onslide=<3>{ActionRed}] (a) to (b1);
+ \draw[link,onslide=<3>{ActionRed}] (a) to (c);
  
- \draw[link] (b1) to (mr-1-1);
- \draw[link] (b1) to (mr-1-2);
- \draw[link] (a) to (mr-1-3);
- \draw[link] (a) to (mr-1-4);
- \draw[link] (c) to (mr-1-5);
- \draw[link] (c) to (mr-1-6);
- \draw[link] (b2) to (ml-1-1);
- \draw[link] (b2) to (ml-1-2);
+ \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-1);
+ \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-2);
+ \draw[link,onslide=<3>{ActionRed}] (a) to (mr-1-3);
+ \draw[link,onslide=<3>{ActionRed}] (a) to (mr-1-4);
+ \draw[link,onslide=<3>{ActionRed}] (c) to (mr-1-5);
+ \draw[link,onslide=<3>{ActionRed}] (c) to (mr-1-6);
+ \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-1);
+ \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-2);
  
  \node[draw, ellipse, fit=(b2) (ml),decoration={snake, amplitude=0.5mm},decorate] (organelle) {};
  \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] (cell) {};
 
  \uncover<2->{
- \matrix (mx) [matrix of nodes, fill=white, below=2cm of cell.center] {
+ \matrix (mx) [matrix of nodes, fill=white, below=2cm of cell.center, nodes ={black}] {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
-  $a\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& \& \\
-  $b\Delta$ \& |[fill=black]| \& |[fill=black]| \& \& \& \& \& |[fill=black]| \& |[fill=black]| \\
-  $c\Delta$ \& \& \& \& \& |[fill=black]| \& |[fill=black]| \& \& \\
+  \color<3>{ActionRed} $A\Delta$ \& |[fill, onslide=<3>{fill=ActionRed}]| \&  |[fill=black, onslide=<3>{fill=ActionRed}]| \& |[fill=black, onslide=<3>{fill=ActionRed}]| \& |[fill=black, onslide=<3>{fill=ActionRed}]| \& |[fill=black, onslide=<3>{fill=ActionRed}]| \& |[fill=black, onslide=<3>{fill=ActionRed}]| \& \& \\
+  \color<4>{ActionRed} $B\Delta$ \& |[fill=black, onslide=<4>{fill=ActionRed}]| \& |[fill=black, onslide=<4>{fill=ActionRed}]| \& \& \& \& \& |[fill=black, onslide=<4>{fill=ActionRed}]| \& |[fill=black, onslide=<4>{fill=ActionRed}]| \\
+  $C\Delta$ \& \& \& \& \& |[fill=black]| \& |[fill=black]| \& \& \\
  };
+ }
+ 
+ \only<3>{
+   \draw[very thick, ActionRed] (a.north west) to (a.south east);
+   \node[anchor=west, ActionRed] at (a.east) {$\Delta$};
+ }
+
+ \only<4>{
+   \draw[very thick, ActionRed] (b1.north west) to (b1.south east);
+   \node[anchor=west, ActionRed] at (b1.east) {$\Delta$};
+   \draw[very thick, ActionRed] (b2.north west) to (b2.south east);
+   \node[anchor=west, ActionRed] at (b2.east) {$\Delta$};
  }
 
 
 \end{tikzpicture}
 \end{frame}
 
-%%% FRAMEBREAK %%% TODO:CONTINUE FROM HERE
+%%% FRAMEBREAK %%%
+
+\begin{frame}{Context-specific nested effect model (CSNEM)}
+\centering
+\begin{tikzpicture}[very thick, ampersand replacement=\&]
+
+ \node[var] (a1) at (0,5mm) {A};
+ \node[var] (b1) at (-1cm,-5mm) {B};
+ \node[var] (c1) at (1cm,-5mm) {C};
+ 
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20, onslide=<3>{white,fill=ActionRed}}, column sep=0.5em] at (0,-2cm) {
+   |[onslide=<4>{white,fill=ActionRed}]| $e_1$ \& |[onslide=<4>{white,fill=ActionRed}]| $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ };
+
+ \begin{scope}[shift={(7cm,0)}]
+  \node[var] (a2) at (0,5mm) {A};
+  \node[var] (b2) at (-10mm,-5mm) {B};
+  \node[var] (c2) at (10mm,-5mm) {C};
+
+  \matrix (ml) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-20mm) {
+   $e_7$ \& $e_8$ \\
+  };
+  
+ \end{scope}
+ 
+ \draw[link,onslide=<3>{ActionRed}] (a1) to (b1);
+ \draw[link,onslide=<3>{ActionRed}] (a1) to (c1);
+ 
+ \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-1);
+ \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-2);
+ \draw[link,onslide=<3>{ActionRed}] (a1) to (mr-1-3);
+ \draw[link,onslide=<3>{ActionRed}] (a1) to (mr-1-4);
+ \draw[link,onslide=<3>{ActionRed}] (c1) to (mr-1-5);
+ \draw[link,onslide=<3>{ActionRed}] (c1) to (mr-1-6);
+ \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-1);
+ \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-2);
+ 
+ \node[draw, fit=(a1) (b1) (c1) (mr)] (context1) {};
+ \node[draw, fit=(a2) (b2) (c2) (ml)] (context2) {};
+ \node[fit=(context1) (context2)] (ghost) {};
+
+ \uncover<2->{
+  \node[anchor=west] (gamma1) at (context1.east) {$\Gamma^1:$};
+  \matrix[matrix of nodes, anchor=west] at (gamma1.east) {
+   |[fill]| \& |[fill]| \& |[fill]| \\
+    \& |[fill]| \&  \\
+    \&  \& |[fill]| \\
+  };
+
+  \node[anchor=west] (gamma2) at (context2.east) {$\Gamma^2:$};
+  \matrix[matrix of nodes, anchor=west] at (gamma2.east) {
+   |[fill]| \&  \&  \\
+    \& |[fill]| \&  \\
+    \&  \& |[fill]| \\
+  };
+ }
+ 
+ \uncover<3->{
+ \matrix (mx) [matrix of nodes, fill=white, below=2cm of ghost.center, nodes ={black}] {
+  \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
+  $A\Delta$ \& \& \& |[fill=black]| \& |[fill=black]| \\
+  $B\Delta$ \& |[fill=black]| \& |[fill=black]| \\
+  $C\Delta$ \& \& \& \& \& |[fill=black]| \& |[fill=black]| \& \& \\
+  $A\Delta$ \\
+  $B\Delta$ \& \& \& \& \& \& \& |[fill]| \& |[fill]| \\
+  $C\Delta$ \\
+ };
+
+ \draw[decorate,decoration={brace,mirror}] (mx-2-1.north west) -- (mx-4-1.south west) node[black,midway,xshift=-0.5em] {$\Theta^1$}; 
+
+ \draw[decorate,decoration={brace,mirror}] (mx-5-1.north west) -- (mx-7-1.south west) node[black,midway,xshift=-0.5em] {$\Theta^1$}; 
+ 
+ }
+
+
+\end{tikzpicture}
+\end{frame}
+
+%%% FRAMEBREAK %%%
 
 %%% FRAMEBREAK %%%
 
