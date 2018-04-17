@@ -397,7 +397,7 @@
 
 %%% FRAMEBREAK %%%
 
-\begin{frame}{Context-specific nested effect model (CSNEM)}
+\begin{frame}{CSNEM as a mixture of NEMs}
 \centering
 \begin{tikzpicture}[very thick, ampersand replacement=\&]
 
@@ -405,8 +405,8 @@
  \node[var] (b1) at (-1cm,-5mm) {B};
  \node[var] (c1) at (1cm,-5mm) {C};
  
- \matrix (mr) [matrix of nodes, nodes={fill=black!20, onslide=<3>{white,fill=ActionRed}}, column sep=0.5em] at (0,-2cm) {
-   |[onslide=<4>{white,fill=ActionRed}]| $e_1$ \& |[onslide=<4>{white,fill=ActionRed}]| $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-2cm) {
+   $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
  };
 
  \begin{scope}[shift={(7cm,0)}]
@@ -420,17 +420,17 @@
   
  \end{scope}
  
- \draw[link,onslide=<3>{ActionRed}] (a1) to (b1);
- \draw[link,onslide=<3>{ActionRed}] (a1) to (c1);
+ \draw[link] (a1) to (b1);
+ \draw[link] (a1) to (c1);
  
- \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-1);
- \draw[link,onslide=<3-4>{ActionRed}] (b1) to (mr-1-2);
- \draw[link,onslide=<3>{ActionRed}] (a1) to (mr-1-3);
- \draw[link,onslide=<3>{ActionRed}] (a1) to (mr-1-4);
- \draw[link,onslide=<3>{ActionRed}] (c1) to (mr-1-5);
- \draw[link,onslide=<3>{ActionRed}] (c1) to (mr-1-6);
- \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-1);
- \draw[link,onslide=<4>{ActionRed}] (b2) to (ml-1-2);
+ \draw[link] (b1) to (mr-1-1);
+ \draw[link] (b1) to (mr-1-2);
+ \draw[link] (a1) to (mr-1-3);
+ \draw[link] (a1) to (mr-1-4);
+ \draw[link] (c1) to (mr-1-5);
+ \draw[link] (c1) to (mr-1-6);
+ \draw[link] (b2) to (ml-1-1);
+ \draw[link] (b2) to (ml-1-2);
  
  \node[draw, fit=(a1) (b1) (c1) (mr)] (context1) {};
  \node[draw, fit=(a2) (b2) (c2) (ml)] (context2) {};
@@ -453,7 +453,7 @@
  }
  
  \uncover<3->{
- \matrix (mx) [matrix of nodes, fill=white, below=2cm of ghost.center, nodes ={black}] {
+ \matrix (mx) [matrix of nodes, fill=white, nodes ={black,yshift=1mm}] at (4cm,-45mm) {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
   $A\Delta$ \& \& \& |[fill=black]| \& |[fill=black]| \\
   $B\Delta$ \& |[fill=black]| \& |[fill=black]| \\
@@ -463,9 +463,11 @@
   $C\Delta$ \\
  };
 
- \draw[decorate,decoration={brace,mirror}] (mx-2-1.north west) -- (mx-4-1.south west) node[black,midway,xshift=-0.5em] {$\Theta^1$}; 
+ \draw[decorate,decoration={brace,mirror,amplitude=0.5em}] (mx-2-1.north west) -- (mx-4-1.south west) node[black,midway,xshift=-1.25em] (t1) {$\Theta^1$}; 
 
- \draw[decorate,decoration={brace,mirror}] (mx-5-1.north west) -- (mx-7-1.south west) node[black,midway,xshift=-0.5em] {$\Theta^1$}; 
+ \draw[decorate,decoration={brace,mirror,amplitude=0.5em}] (mx-5-1.north west) -- (mx-7-1.south west) node[black,midway,xshift=-1.25em] (t2) {$\Theta^2$}; 
+
+ \draw[decorate,decoration={brace,mirror,amplitude=0.5em}] (t1.north west) -- (t2.south west) node[black,midway,anchor=east,xshift=-0.5em] {Attachments $\Theta$}; 
  
  }
 
@@ -475,85 +477,36 @@
 
 %%% FRAMEBREAK %%%
 
-%%% FRAMEBREAK %%%
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{CSNEM as a mixture of NEMs}
-\centering
-\begin{tikzpicture}[very thick, ampersand replacement=\&]
-
- \node[var] (a) {a};
- \node[var, below right=1 and 1 of a] (b) {b};
- 
-  \matrix (mx1) [matrix of nodes, below=2 of a] {
-  \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
-  $a\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
-  $b\Delta$ \& \& \& \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
- };
-
-  \matrix (mx2) [matrix of nodes, right=of mx1] {
-  \& $e_7$ \& $e_8$ \\
-  $a\Delta$ \& \& \\
-  $b\Delta$ \& |[fill=black]| \& |[fill=black]| \\
- };
-
- \node[var, above=2 of mx2] (b2) {b};
-
- \draw[link] (a) to (b);
- \draw[link] (a) to (mx1-1-2);
- \draw[link] (a) to (mx1-1-3);
- \draw[link] (a) to (mx1-1-4);
- \draw[link] (b) to (mx1-1-5);
- \draw[link] (b) to (mx1-1-6);
- \draw[link] (b) to (mx1-1-7);
- \draw[link] (b2) to (mx2-1-2);
- \draw[link] (b2) to (mx2-1-3);
-
- \node[draw, fit=(a)(mx1)] (nem1) {};
- \node[draw, fit=(b2)(mx2)] (nem2) {};
-
- \node[anchor=north] at (nem1.south) {$\Gamma^1, \Theta^1$};
- \node[anchor=north] at (nem2.south) {$\Gamma^2, \Theta^2$};
-
-\end{tikzpicture}
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
 \begin{frame}{Likelihood formulation}
 \[
-L_\text{CSNEM}(\Gamma, \Theta) = \prod_{i=1}^k L_\text{NEM}(\Gamma^i, \Theta^i)
+ \underbrace{
+  L_\text{CSNEM}(\Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k)
+ }_{\text{CSNEM Likelihood}}
+ = \prod_{i=1}^k
+ \underbrace{
+  L_\text{NEM}(\Gamma^i, \Theta^i)
+ }_{\text{NEM Likelihood}}
 \]
 \pause
 \[
-\log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^i ) + c
+\log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^T ) + c
 \]
+\begin{center}\small
+$R=$ likelihood ratio matrix: $R_{ae} = \log \frac{ \mathbb P( D_{ae} | H_1 ) }{ \mathbb P( D_{ae} | H_0 ) }$
+\end{center}
 \pause
 \[ \cdots \]
 \[
-\log L_\text{CSNEM}(\Gamma, \Theta) = \mathsf{tr}( \Gamma \Theta R^* ) + c^*
+\log L_\text{CSNEM}(\Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k) = \mathsf{tr}( \Gamma \Theta R^{*T} ) + c^*
 \]
 \end{frame}
 
 %%% FRAMEBREAK %%%
 
-\begin{frame}{Likelihood of a $k$-CSNEM}
-\[
-L_\text{CSNEM}( \Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k )
- = \prod_{i=1}^k L_\text{NEM}( \Gamma^i, \Theta^i ) \]
-\pause
-\[
-\log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^i ) + c
-\]
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{Likelihood of a $k$-CSNEM}
+\begin{frame}{CSNEM Log Likelihood}
 \begin{multline*}
 \log L_\text{CSNEM}( \Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k )
- = \\ \text{trace}\left(
+ = \\ \mathrm{tr}\left(
  \underbrace{\begin{bmatrix}
 	\Gamma^1 & 0 & \cdots & 0 \\
 	0 & \Gamma^2 & & \vdots \\
@@ -561,13 +514,13 @@ L_\text{CSNEM}( \Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k )
 	0 & \cdots & 0 & \Gamma^k
  \end{bmatrix}}_{\text{Block diagonal } \Gamma}
  \underbrace{\begin{bmatrix}
-	\Theta^1 & 0 & \cdots & 0 \\
-	0 & \Theta^2 & & \vdots \\
-	\vdots & & \ddots & 0 \\
-	0 & \cdots & 0 & \Theta^k
- \end{bmatrix}}_{\text{``Big'' } (|\mathcal A|k \times |\mathcal E|)\quad \Theta}
+	\Theta^1 \\
+	\Theta^2 \\
+	\vdots \\
+	\Theta^k
+ \end{bmatrix}}_{\text{``Big'' } \Theta; (|\mathcal A|k \times |\mathcal E|)}
  \underbrace{\begin{bmatrix}
-	R & R & \cdots & R
+	R^T & R^T & \cdots & R^T
  \end{bmatrix}}_{k \text{ copies}} \right) + c
 \end{multline*}
 \end{frame}
@@ -604,7 +557,7 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
 %%% FRAMEBREAK %%%
 
 \begin{frame}{Evaluation on simulated data}
-%\includegraphics[width=\textwidth]{effect-for-pres}
+\includegraphics[width=\textwidth]{effect-for-pres.pdf}
 \end{frame}
 
 %%% FRAMEBREAK %%%
