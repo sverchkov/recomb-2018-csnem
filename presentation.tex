@@ -586,7 +586,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 \begin{frame}{Network learned from the \textit{S. cerevisiae} data}
   \vskip5mm
   \begin{tikzpicture}
-   \node[anchor=north west,inner sep=0] at (-10mm,10mm) {\includegraphics[width=14cm]{recomb-2018-short-names.pdf}};
+   \node[anchor=north west,inner sep=0,clip] at (-10mm,10mm) {\includegraphics[width=14cm]{recomb-2018-short-names.pdf}};
    
    %\draw[help lines] (-1cm,1cm) grid (13cm,-5cm);
     
@@ -617,7 +617,17 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
       (109mm,4mm) circle[radius=5mm]
       (125mm,3mm) circle[radius=5mm]
       (125mm,-11mm) circle[radius=5mm];
-    \node[text block, text width=8cm] at (35mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress};  
+    \node[text block, text width=8cm] at (60mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress};  
+   }
+
+   \uncover<5>{
+    \fill[fill=white,opacity=0.7,even odd rule]
+      (-1cm,1cm) rectangle (13cm,-5cm)
+      (73mm,5mm) circle[radius=5mm] %ygr122w
+      (58mm,3mm) circle[radius=5mm] %rim101 (yellow)
+      (72mm,-18mm) circle[radius=5mm] %rim101 (magenta)
+      ;
+    \node[text block, text width=8cm] at (60mm,-4cm) {YGR122W is required for processing Rim101};  
    }
      
    \path pic {colormap};
@@ -626,73 +636,40 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 
 %%% FRAMEBREAK %%%
 
-\begin{frame}{Network learned from the S.\ cerevisiae data}
-\includegraphics[width=\textwidth]{recomb-2018-short-names.pdf}
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{Network learned from the S.\ cerevisiae data}
-%\includegraphics[width=\textwidth,trim={0 8.3in 0 0},clip]{hog1-nodes}
-
-\vfill
-
-Hog1 is a master regulator of osmotic stress response
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{Network learned from the S.\ cerevisiae data}
-%\includegraphics[width=\textwidth,trim={0 8.3in 0 0},clip]{ck-nodes}
-
-\vfill
-
-Hog1 and CK complex subunits (Cka2, Ckb1/2) interact, regulate overlapping sets of genes
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{Network learned from the S.\ cerevisiae data}
-%\includegraphics[width=\textwidth,trim={0 8in 0 0},clip]{msn2-nodes}
-
-\vfill
-
-Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
-\begin{frame}{Network learned from the S.\ cerevisiae data}
-%\includegraphics[width=\textwidth,trim={0 8in 0 0},clip]{rim101-nodes}
-
-\vfill
-
-YGR122W is required for processing Rim101
-\end{frame}
-
-%%% FRAMEBREAK %%%
-
 \begin{frame}{Effect group GO term enrichments}
 \centering
-\includegraphics[width=0.8\textwidth]{go-terms-csnem-presentation}
+\begin{tikzpicture}
+ \node[anchor=north west,inner sep=0,clip] at (-6cm,4cm) {\includegraphics[width=0.8\textwidth]{go-terms-csnem-presentation}};
+ \path pic {colormap};
+ \draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Effect group GO term enrichments}
 \centering
-\includegraphics[width=\textwidth]{go-terms-dense-csnem-presentation}
+\begin{tikzpicture}
+ \node[anchor=north west,inner sep=0,clip] at (-8cm,5cm) {\includegraphics[width=\textwidth]{go-terms-dense-csnem-presentation}};
+ \path pic {colormap};
+ \draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
+\end{tikzpicture}
 \end{frame}
-
 
 %%% FRAMEBREAK %%%
 
 \begin{frame}{Context-wise GO term enrichments}
-\includegraphics[scale=0.7]{go-terms-contexts-presentation}
+\begin{tikzpicture}
+ \node[anchor=south east,inner sep=0] at (1cm,-1cm) {\includegraphics[scale=0.7]{go-terms-contexts-presentation}};
+ \path pic {colormap};
+% \draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
+\end{tikzpicture}
 \end{frame}
 
 %%% FRAMEBREAK %%%
 
 \begin{frame}{Conclusions}
  \begin{itemize}
+  \item We introduce a novel type of model context-specific biological interactions.
+  \pause
   \item Simulations show that
   \begin{itemize}
    \item context-specificity is recoverable, and
