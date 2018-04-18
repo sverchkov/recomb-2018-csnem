@@ -557,6 +557,8 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
 %%% FRAMEBREAK %%%
 
 \begin{frame}{Evaluation on simulated data}
+$n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
+
 \includegraphics[width=\textwidth]{effect-for-pres.pdf}
 \end{frame}
 
@@ -576,14 +578,49 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
  \log_2 \left( \frac{\Delta \text{ strain treated}}{\Delta \text{ strain untreated}} \bigg/ \frac{\text{WT strain treated}}{\text{WT strain untreated}} \right)
 \]
 \vfill
-{\tiny \fullcite{berry2008stress} \\ \fullcite{lee2011dynamic} \\}
+{\parencite{berry2008stress, lee2011dynamic} \\}
 \end{frame}
 
 %%% FRAMEBREAK %%%
 
-\begin{frame}{}\small  
+\begin{frame}{Network learned from the \textit{S. cerevisiae} data}
+  \vskip5mm
   \begin{tikzpicture}
-    \path pic {colormap};
+   \node[anchor=north west,inner sep=0] at (-10mm,10mm) {\includegraphics[width=14cm]{recomb-2018-short-names.pdf}};
+   
+   %\draw[help lines] (-1cm,1cm) grid (13cm,-5cm);
+    
+   \uncover<2>{
+    \fill[fill=white,opacity=0.7,even odd rule]
+      (-1cm,1cm) rectangle (13cm,-5cm)
+      (38mm,4mm) circle (5mm);
+    \node[text block, text width=8cm] at (6cm,-3cm) {Hog1 is a master regulator of osmotic stress response};  
+   }
+   
+   \uncover<3>{
+    \fill[fill=white,opacity=0.7,even odd rule]
+      (-1cm,1cm) rectangle (13cm,-5cm)
+      (38mm,4mm) circle[radius=5mm]
+      (21mm,-4mm) circle[radius=5mm]
+      (109mm,-26mm) circle[radius=5mm]
+      (103mm,-41mm) circle[radius=5mm];
+    \node[text block, text width=8cm] at (35mm,-4cm) {Hog1 and CK complex subunits (Cka2, Ckb1/2) interact, regulate overlapping sets of genes};  
+   }
+   
+   \uncover<4>{
+    \fill[fill=white,opacity=0.7,even odd rule]
+      (-1cm,1cm) rectangle (13cm,-5cm)
+      (38mm,4mm) circle[radius=5mm]
+      (37mm,-5mm) circle[radius=5mm]
+      (22mm,-15mm) circle[radius=5mm]
+      (89mm,5mm) circle[radius=5mm]
+      (109mm,4mm) circle[radius=5mm]
+      (125mm,3mm) circle[radius=5mm]
+      (125mm,-11mm) circle[radius=5mm];
+    \node[text block, text width=8cm] at (35mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress};  
+   }
+     
+   \path pic {colormap};
   \end{tikzpicture}
 \end{frame}
 
