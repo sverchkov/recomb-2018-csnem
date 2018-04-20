@@ -130,33 +130,51 @@
 \centering
 \begin{tikzpicture}[very thick, ampersand replacement=\&]
 
- \node[var] (a) at (0,5mm) {A};
- \node[var] (b1) at (-1cm,-5mm) {B};
- \node[var] (c) at (1cm,-5mm) {C};
- \node[var] (b2) at (4cm,0) {B};
+ \matrix (mr) [matrix of nodes, nodes={fill=black!20, onslide=<1>{text=white, fill=ActionRed} }, column sep=0.5em] at (0,-2cm) {
+  $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
+ };
 
- \matrix (mr) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (0,-2cm) {
-   $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \\
- };
+ {\color<1>{StrongBlue}
+  \node[var] (a) at (0,5mm) {A};
+  \node[var] (b1) at (-1cm,-5mm) {B};
+  \node[var] (c) at (1cm,-5mm) {C};
  
- \matrix (ml) [matrix of nodes, nodes={fill=black!20}, column sep=0.5em] at (4cm, -2cm) {
-   $e_7$ \& $e_8$ \\
- };
+  \draw[link] (a) to (b1);
+  \draw[link] (a) to (c);
  
- \draw[link] (a) to (b1);
- \draw[link] (a) to (c);
+  \draw[link] (b1) to (mr-1-1);
+  \draw[link] (b1) to (mr-1-2);
+  \draw[link] (a) to (mr-1-3);
+  \draw[link] (a) to (mr-1-4);
+  \draw[link] (c) to (mr-1-5);
+  \draw[link] (c) to (mr-1-6);
+ }
+  
+ \uncover<2->{
+  
+  \matrix (ml) [matrix of nodes, nodes={fill=black!20, onslide=<2>{text=white, fill=ActionRed}}, column sep=0.5em] at (4cm, -2cm) {
+    $e_7$ \& $e_8$ \\
+  };
+
+  {\color<2>{ActionRed}
+   \node[var] (b2) at (4cm,0) {B};
+
+   \draw[link] (b2) to (ml-1-1);
+   \draw[link] (b2) to (ml-1-2);
+  
+  
+   \node[draw, ellipse, fit=(b2) (ml),decoration={snake, amplitude=0.5mm},decorate] (organelle) {};
+  }
+ }
  
- \draw[link] (b1) to (mr-1-1);
- \draw[link] (b1) to (mr-1-2);
- \draw[link] (a) to (mr-1-3);
- \draw[link] (a) to (mr-1-4);
- \draw[link] (c) to (mr-1-5);
- \draw[link] (c) to (mr-1-6);
- \draw[link] (b2) to (ml-1-1);
- \draw[link] (b2) to (ml-1-2);
- 
- \node[draw, ellipse, fit=(b2) (ml),decoration={snake, amplitude=0.5mm},decorate] (organelle) {};
- \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] {};
+ \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] (cell) {};
+
+ \uncover<1>{
+  \node[text block,anchor=south,text width=8cm] at (cell.south) {\textbf{Task:} infer {\color{StrongBlue} causal relationships} from \color{ActionRed}{observed high-dimesional phenotypes (\textbf{effects})}};
+ }
+ \uncover<2>{
+  \node[text block,anchor=south,text width=8cm] at (cell.south) {\textbf{Context-specificity:} the same actors can have different relationships in different \textbf{\color{ActionRed} contexts}.};
+ }
 
 \end{tikzpicture}
 \end{frame}
@@ -177,7 +195,7 @@
       \& |[fill=StrongBlue,onslide={<4,6>{fill=StrongGreen}}]|$e_7$
       \& |[fill=StrongRed,onslide={<4,6>{fill=StrongGreen}}]|$e_8$ \\
     };
-
+    
     \uncover<3->{
       \node[var] (a) at (0,0) {A};
       \node[var] (b) at (-1cm, -1cm) {B}; 
@@ -225,6 +243,9 @@
  %   \uncover<7>{
  %     \node[anchor=south, fill=white] at (d.north) {High-dimensional phenotype};
  %   }
+    \uncover<1>{
+     \node[text block,text width=8cm,below=0mm of cell] {\textbf{Effects} are things we can measure: high-dimensional phenotypes, e.g., metabolomics, proteomics, etc.};
+    }
   \end{tikzpicture}
 \end{frame}
 
@@ -538,24 +559,61 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
 % > Mixture of random networks (varying density and k)
 % > Beta parameter for noise
 
-
-
-%% old
-
 \begin{frame}{Evaluation on simulated data}
-\begin{itemize}[<+->]
- \item \small For each of $n_\mathcal{A} \in \{3,5,10,20\}$ actions, $k_\text{true} \in \{1,\ldots, 5\}$, $\beta \in \{1, 2, 5, 10 \}$
- \item Make a generative $k_\text{true}$-CSNEM model
- \begin{itemize}
-  \item Generate $k_\text{true}$ random graphs of $n_\mathcal{A}$ actions.
-  \item For each of 1000 effects, with probability 0.7 attach the effect to one of the actions in one of the graphs.
- \end{itemize}
- \item Generate an $n_\mathcal{A} \times 1000$ binary effect matrix $F_\text{true}$ using the CSNEM model
- \item Generate a log-odds matrix $R$ from $F_\text{true}$ by sampling from a $\log \frac{ \mathsf{Beta}(\beta,1) }{ \mathsf{Beta}(1,\beta) }$ distribution where $F_\text{true}$ is 1 and a $\log \frac{ \mathsf{Beta}(1,\beta) }{ \mathsf{Beta}(\beta,1) }$ distribution where $F_\text{true}$ is 0.
- \item For $k_\text{learning} \in \{ 1, \ldots 8 \}$, learn a $k_\text{true}$-CSNEM model from R
- \item Compare the predicted binary effect matrix of $F_\text{learning}$ to the ground truth effect matrix $F_\text{true}$
- \item Compare the graphs learned (by using best-matches of each action's context).
-\end{itemize}
+ \begin{tikzpicture}
+  \node (nakt) at (0mm,20mm) {$n_\mathcal{A}, k_\text{true}$};
+  
+  \pause
+  
+  \node[text block] (gs) at (0,0) {Random $\Gamma_1, \ldots, \Gamma_{k_\text{true}}$};
+  \draw[link] (nakt) to (gs);
+  
+  \pause
+
+  \node (theta) at (20mm, 10mm) {Random $\Theta$};
+  \node[text block] (tnet) at (40mm,0) {Generating CSNEM};
+  \draw[link] (gs) to (tnet);
+  \draw[link,out=270,in=180] (theta) to (tnet);
+  
+  \pause
+  
+  \node[text block] (tf) at (80mm, 0) {$F_\text{true}$};
+  \draw[link] (tnet) to (tf);
+
+  \pause
+  
+  \node (beta) at (70mm,-10mm) {Noise $\beta$};
+  \node[text block] (lrm) at (80mm,-20mm) {$R$};
+  \draw[link] (tf) to (lrm);
+  \draw[link,out=0,in=90] (beta) to (lrm);
+
+  \pause  
+  
+  \node (kl) at (90mm,-30mm) {$k_\text{learning}$};
+  \node[text block] (lnet) at (80mm,-40mm) {Learned CSNEM};
+  \draw[link] (lrm) to (lnet);
+  \draw[link,out=180,in=90] (kl) to (lnet);  
+  
+  \pause
+  
+  \node[text block,text width=3cm] (lgs) at (40mm,-40mm) {Learned $\Gamma_1,\ldots,\Gamma_{k_\text{learning}}$};
+  \draw[link] (lnet) to (lgs);
+  
+  \pause
+  \node (cmpg) at (40mm,-20mm) {\includegraphics[width=2cm]{ancestries-f-measures.pdf}};
+  \draw[link] (lgs) to (cmpg);
+  \draw[link] (gs) to (cmpg);
+  
+  \pause
+  \node[text block] (lf) at (110mm,-40mm) {$F_\text{learned}$};
+  \draw[link] (lnet) to (lf);
+  
+  \pause
+  \node (cmpf) at (110mm,-15mm) {\includegraphics[width=2cm]{effect-f-measures.pdf}};
+  \draw[link] (tf) to (cmpf);
+  \draw[link] (lf) to (cmpf);
+  
+ \end{tikzpicture}
 \end{frame}
 
 %%% FRAMEBREAK %%%
@@ -595,14 +653,14 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
    %\draw[help lines] (-1cm,1cm) grid (13cm,-5cm);
     
    \uncover<2>{
-    \fill[fill=white,opacity=0.7,even odd rule]
+    \fill[fill=white,opacity=0.85,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
       (38mm,4mm) circle (5mm);
     \node[text block, text width=8cm] at (6cm,-3cm) {Hog1 is a master regulator of osmotic stress response};  
    }
    
    \uncover<3>{
-    \fill[fill=white,opacity=0.7,even odd rule]
+    \fill[fill=white,opacity=0.85,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
       (38mm,4mm) circle[radius=5mm]
       (21mm,-4mm) circle[radius=5mm]
@@ -612,7 +670,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
    }
    
    \uncover<4>{
-    \fill[fill=white,opacity=0.7,even odd rule]
+    \fill[fill=white,opacity=0.85,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
       (38mm,4mm) circle[radius=5mm]
       (37mm,-5mm) circle[radius=5mm]
@@ -625,7 +683,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
    }
 
    \uncover<5>{
-    \fill[fill=white,opacity=0.7,even odd rule]
+    \fill[fill=white,opacity=0.85,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
       (73mm,5mm) circle[radius=5mm] %ygr122w
       (58mm,3mm) circle[radius=5mm] %rim101 (yellow)
@@ -652,7 +710,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 \begin{frame}{Effect group GO term enrichments}
 \centering
 \begin{tikzpicture}
- \node[anchor=north west,inner sep=0,clip] at (-8cm,5cm) {\includegraphics[width=\textwidth]{go-terms-dense-csnem-presentation}};
+ \node[anchor=north west,inner sep=0,clip] at (-8cm,5cm) {\includegraphics[width=0.95\textwidth]{go-terms-dense-csnem-presentation}};
  \path pic {colormap};
  %\draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
 \end{tikzpicture}
@@ -672,7 +730,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 
 \begin{frame}{Conclusions}
  \begin{itemize}
-  \item We introduce a novel type of model context-specific biological interactions.
+  \item We introduce a novel approach to modeling context-specific biological interactions.
   \pause
   \item Simulations show that
   \begin{itemize}
@@ -681,76 +739,79 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
   \end{itemize}
   \item Application to salt-stress data shows
   \begin{itemize}
-   \item context-specific effect groups capture meaningful GO categories, and
+   \item context-specific effect groups are enriched for meaningful GO categories, and
    \item the learned CSNEM aligns with known biology.
   \end{itemize}
  \end{itemize}
  \pause
  \begin{block}{Acknowledgments}
-   Mark Craven, Audrey P. Gash, Elisha Yi-Hsuan Ho %\\
+   Mark Craven, Audrey P. Gash, Elisha Yi-Hsuan Ho \\
+   \scriptsize
+   \color{UWRed}
+   This research was supported by NIH/NLM grant T15 LM0007359, NIH/NIAID grant U54 AI117954, and NIH/NIGMS grant R01 GM083989.
 %   CIBM, Grant T15 LM0077359 from the National Library of Medicine, National~Institutes~of~Health
  \end{block}
 \end{frame}
 
 %%% FRAMEBREAK %%%
-
-\begin{frame}{Synthesis and identifiability}
-\centering
-\begin{tikzpicture}[very thick, ampersand replacement=\&]
-	\node (n) at (9em, 8em) {\begin{tikzpicture}
-		\matrix (n1) [matrix of nodes, row sep=0.5em] {
-			Hog1 \& \\
-			\& Cka2 \\
-			Ckb12 \& \\
-		};
-		\draw[->] (n1-1-1) -- (n1-2-2);
-
-		\matrix (n2) [right=of n1, matrix of nodes, row sep=0.5em] {
-			Hog1 \& \\
-			\& Cka2 \\
-			Ckb12 \& \\
-		};
-		\draw[->] (n2-1-1) -- (n2-3-1);
-		\draw[->] (n2-2-2) -- (n2-3-1);
-
-		\matrix (n3) [right=of n2, matrix of nodes, row sep=0.5em] {
-			Hog1 \& \\
-			\& Cka2 \\
-			Ckb12 \& \\
-		};
-		%\draw[->] (n3-1-1) -- (n3-3-1);
-		\node [fit=(n1),draw] {};
-		\node [fit=(n2),draw] {};
-		\node [fit=(n3),draw] {};
-	\end{tikzpicture}};
-	%\node [anchor=south east] at (n.north west) {(a)};
-	
-	\node (m) at (0,0) {\begin{tikzpicture}
-		\node (hog1) at (4em,6em) {Hog1};
-		\node (cka2) at (8em,6em) {Cka2};
-		\node (cka2-2) at (0,3em) {Cka2 [Hog1]};
-		\node (ckb12) at (10em,3em) {Ckb12}; 
-		\node (ckb12-2) at (6em,0) {Ckb12 [Hog1 Cka2]};
-		\draw[->] (hog1) -- (cka2-2);
-		\draw[->] (hog1) -- (ckb12-2);
-		\draw[->] (cka2) -- (ckb12-2);
-	\end{tikzpicture}};
-	%\node at (m.north west) {(b)};
-		
-	\node (s) at (18em, 0) {\begin{tikzpicture}
-		\node (hog1) at (0,6em) {$\{ \text{Hog1} \}$};
-		\node (cka2) at (4em,6em)  {$\{ \text{Cka2} \}$};
-		\node (ckb12) at (8em,6em) {$\{ \text{Ckb12} \}$};
-		\node (hog1-cka2) at (1em,3em) {$\{ \text{Hog1}, \text{Cka2} \}$};
-		\node (all) at (3em,0) {$\{ \text{Hog1}, \text{Cka2}, \text{Ckb12} \}$};
-		\draw[->] (hog1) -- (hog1-cka2);
-		\draw[->] (cka2) -- (hog1-cka2);
-		\draw[->] (hog1-cka2) -- (all);
-		\draw[->] (ckb12) -- (all);
-	\end{tikzpicture}};
-	%\node at (s.north west) {(c)};
-	
-\end{tikzpicture}
-\end{frame}
+%
+%\begin{frame}{Synthesis and identifiability}
+%\centering
+%\begin{tikzpicture}[very thick, ampersand replacement=\&]
+%	\node (n) at (9em, 8em) {\begin{tikzpicture}
+%		\matrix (n1) [matrix of nodes, row sep=0.5em] {
+%			Hog1 \& \\
+%			\& Cka2 \\
+%			Ckb12 \& \\
+%		};
+%		\draw[->] (n1-1-1) -- (n1-2-2);
+%
+%		\matrix (n2) [right=of n1, matrix of nodes, row sep=0.5em] {
+%			Hog1 \& \\
+%			\& Cka2 \\
+%			Ckb12 \& \\
+%		};
+%		\draw[->] (n2-1-1) -- (n2-3-1);
+%		\draw[->] (n2-2-2) -- (n2-3-1);
+%
+%		\matrix (n3) [right=of n2, matrix of nodes, row sep=0.5em] {
+%			Hog1 \& \\
+%			\& Cka2 \\
+%			Ckb12 \& \\
+%		};
+%		%\draw[->] (n3-1-1) -- (n3-3-1);
+%		\node [fit=(n1),draw] {};
+%		\node [fit=(n2),draw] {};
+%		\node [fit=(n3),draw] {};
+%	\end{tikzpicture}};
+%	%\node [anchor=south east] at (n.north west) {(a)};
+%	
+%	\node (m) at (0,0) {\begin{tikzpicture}
+%		\node (hog1) at (4em,6em) {Hog1};
+%		\node (cka2) at (8em,6em) {Cka2};
+%		\node (cka2-2) at (0,3em) {Cka2 [Hog1]};
+%		\node (ckb12) at (10em,3em) {Ckb12}; 
+%		\node (ckb12-2) at (6em,0) {Ckb12 [Hog1 Cka2]};
+%		\draw[->] (hog1) -- (cka2-2);
+%		\draw[->] (hog1) -- (ckb12-2);
+%		\draw[->] (cka2) -- (ckb12-2);
+%	\end{tikzpicture}};
+%	%\node at (m.north west) {(b)};
+%		
+%	\node (s) at (18em, 0) {\begin{tikzpicture}
+%		\node (hog1) at (0,6em) {$\{ \text{Hog1} \}$};
+%		\node (cka2) at (4em,6em)  {$\{ \text{Cka2} \}$};
+%		\node (ckb12) at (8em,6em) {$\{ \text{Ckb12} \}$};
+%		\node (hog1-cka2) at (1em,3em) {$\{ \text{Hog1}, \text{Cka2} \}$};
+%		\node (all) at (3em,0) {$\{ \text{Hog1}, \text{Cka2}, \text{Ckb12} \}$};
+%		\draw[->] (hog1) -- (hog1-cka2);
+%		\draw[->] (cka2) -- (hog1-cka2);
+%		\draw[->] (hog1-cka2) -- (all);
+%		\draw[->] (ckb12) -- (all);
+%	\end{tikzpicture}};
+%	%\node at (s.north west) {(c)};
+%	
+%\end{tikzpicture}
+%\end{frame}
 
 \end{document}
