@@ -653,42 +653,76 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
    %\draw[help lines] (-1cm,1cm) grid (13cm,-5cm);
     
    \uncover<2>{
-    \fill[fill=white,opacity=0.85,even odd rule]
+    \path [fill=white,opacity=0.75,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
-      (38mm,4mm) circle (5mm);
-    \node[text block, text width=8cm] at (6cm,-3cm) {Hog1 is a master regulator of osmotic stress response};  
+      (38.7mm,4mm) circle[radius=5mm]; %Hog1
+
+    \draw[very thick] (38.7mm,4mm) circle[radius=5mm]; %Hog1
+      
+    \node[text block, text width=8cm] at (6cm,-3cm) {Hog1 is a master regulator of osmotic stress response \scriptsize \parencite{nadal2015osmostress}};
    }
    
    \uncover<3>{
-    \fill[fill=white,opacity=0.85,even odd rule]
+    \path[fill=white,opacity=0.75,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
-      (38mm,4mm) circle[radius=5mm]
-      (21mm,-4mm) circle[radius=5mm]
-      (109mm,-26mm) circle[radius=5mm]
-      (103mm,-41mm) circle[radius=5mm];
-    \node[text block, text width=8cm] at (35mm,-4cm) {Hog1 and CK complex subunits (Cka2, Ckb1/2) interact, regulate overlapping sets of genes};  
+      (38.7mm,4mm) circle[radius=5mm] %Hog1
+      (20.7mm,-4.5mm) circle[radius=5mm] %Cka2
+      (109mm,-26mm) circle[radius=5mm] %Ckb12
+      (104mm,-40.8mm) circle[radius=5mm]; %Cka1
+      
+    \draw[very thick]
+      (38.7mm,4mm) circle[radius=5mm] %Hog1
+      (20.7mm,-4.5mm) circle[radius=5mm] %Cka2
+      (109mm,-26mm) circle[radius=5mm] %Ckb12
+      (104mm,-40.8mm) circle[radius=5mm]; %Cka1
+    
+    \node[text block, text width=8cm] at (35mm,-4cm) {Hog1 and CK complex subunits (Cka2, Ckb1/2) interact, regulate overlapping sets of genes \scriptsize
+    \parencite{chasman2014pathway}};  
    }
    
    \uncover<4>{
-    \fill[fill=white,opacity=0.85,even odd rule]
+    \path[fill=white,opacity=0.75,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
-      (38mm,4mm) circle[radius=5mm]
-      (37mm,-5mm) circle[radius=5mm]
-      (22mm,-15mm) circle[radius=5mm]
-      (89mm,5mm) circle[radius=5mm]
+      (38.7mm,4mm) circle[radius=5mm] %Hog1
+      (37.5mm,-6mm) circle[radius=5mm] %Pde2
+      (23mm,-15mm) circle[radius=5mm] %Msn2
+      (89mm,5mm) circle[radius=5mm] %Snf1
       (109mm,4mm) circle[radius=5mm]
       (125mm,3mm) circle[radius=5mm]
       (125mm,-11mm) circle[radius=5mm];
-    \node[text block, text width=8cm] at (60mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress};  
+      
+    \draw[very thick]
+      (38.7mm,4mm) circle[radius=5mm] %Hog1
+      (37.5mm,-6mm) circle[radius=5mm] %Pde2
+      (23mm,-15mm) circle[radius=5mm] %Msn2
+      (89mm,5mm) circle[radius=5mm] %Snf1
+      (109mm,4mm) circle[radius=5mm]
+      (125mm,3mm) circle[radius=5mm]
+      (125mm,-11mm) circle[radius=5mm];
+   
+    \node[text block, text width=8cm] at (60mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress
+    \scriptsize \parencite{chasman2014pathway,
+     lee2008yeast,%18793336, 
+mayordomo2002convergence,%12093809,
+petrenko2013noise,%23615444]
+rep2000transcriptional%[PMID:  10722658,
+    }};  
    }
 
    \uncover<5>{
-    \fill[fill=white,opacity=0.85,even odd rule]
+    \path [fill=white,opacity=0.75,even odd rule]
       (-1cm,1cm) rectangle (13cm,-5cm)
-      (73mm,5mm) circle[radius=5mm] %ygr122w
+      (73mm,6mm) circle[radius=5mm] %ygr122w
       (58mm,3mm) circle[radius=5mm] %rim101 (yellow)
       (72mm,-18mm) circle[radius=5mm] %rim101 (magenta)
       ;
+      
+    \draw[very thick]
+      (73mm,6mm) circle[radius=5mm] %ygr122w
+      (58mm,3mm) circle[radius=5mm] %rim101 (yellow)
+      (72mm,-18mm) circle[radius=5mm] %rim101 (magenta)
+      ;
+      
     \node[text block, text width=8cm] at (60mm,-4cm) {YGR122W is required for processing Rim101};  
    }
      
