@@ -711,19 +711,39 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 \centering
 \begin{tikzpicture}
  \node[anchor=north west,inner sep=0,clip] at (-8cm,5cm) {\includegraphics[width=0.95\textwidth]{go-terms-dense-csnem-presentation}};
+
+ \draw<2>[ActionRed, very thick] (-73mm,-23mm) rectangle (-58.5mm,49.5mm);
+ \draw<2>[ActionRed, very thick] (-48.5mm,-23mm) rectangle (-38.5mm,49.5mm);
+ \draw<2>[ActionRed, very thick] (-79mm,29mm) -- (25mm,29mm);
+  
+ \draw<3>[ActionRed, very thick] (-58.5mm,-23mm) rectangle (-48.5mm,49.5mm);
+ \draw<3>[ActionRed, very thick] (-79mm,2.4mm) -- (25mm,2.4mm);
+ \draw<3>[ActionRed, very thick] (-79mm,22mm) -- (40mm,22mm);
+  
  \path pic {colormap};
- %\draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
+% \draw[help lines] (-8cm,5cm) grid (5cm,-2.5cm);
 \end{tikzpicture}
 \end{frame}
 
 %%% FRAMEBREAK %%%
 
 \begin{frame}{Context-wise GO term enrichments}
-\begin{tikzpicture}
- \node[anchor=south east,inner sep=0] at (1cm,-1cm) {\includegraphics[scale=0.7]{go-terms-contexts-presentation}};
- \path pic {colormap};
-% \draw[help lines] (-5cm,-5cm) grid (5cm,5cm);
-\end{tikzpicture}
+ \begin{tikzpicture}
+  \node[anchor=south east,inner sep=0] at (1cm,-1cm) {\includegraphics[scale=0.7]{go-terms-contexts-presentation}};
+
+  \begin{scope}[ActionRed, very thick]
+   \draw[link] (20mm,11.7mm) -- (-10mm,11.7mm);
+   \draw[link] (20mm,25mm) -- (-1mm,25mm);
+   \draw[link] (20mm,32mm) -- (-11mm,32mm);
+   \draw[link] (20mm,40mm) -- (-11.5mm,40mm);
+   \draw[link] (20mm,50mm) -- (-5mm,50mm);
+   
+   \node at (50mm,35mm) {\large Location GO terms};
+  \end{scope}
+  
+  \path pic {colormap};
+  %\draw[help lines] (0cm,0cm) grid (-5cm,6cm);
+ \end{tikzpicture}
 \end{frame}
 
 %%% FRAMEBREAK %%%
