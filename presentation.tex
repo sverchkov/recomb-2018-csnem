@@ -4,7 +4,14 @@
 \usepackage[utf8]{inputenc}
 
 %% BIB
-\usepackage[style=authoryear,backend=biber,url=false]{biblatex}
+\usepackage[
+  style=authoryear,
+  backend=biber,
+  url=false,
+  maxcitenames=2,
+  uniquename=false,
+  uniquelist=false
+]{biblatex}
 \addbibresource{nems.bib}
 \addbibresource{yeast.bib}
 
@@ -111,8 +118,8 @@
 %% CONTENT BEGINS
 
 \title{Context-Specific Nested Effect Models}
-\subtitle{RECOMB 2018}
-\author{Yuriy Sverchkov}
+\subtitle{RECOMB 2018, Paris}
+\author{\textbf{Yuriy Sverchkov} \and Elisha Yi-Hsuan Ho \and Audrey P. Gash \and Mark Craven}
 \institute{University of Wisconsin--Madison}
 \date{April 24, 2018}
 
@@ -170,7 +177,7 @@
  \node[draw, ellipse, fit=(a) (b1) (mr) (organelle), double, double distance=1mm] (cell) {};
 
  \uncover<1>{
-  \node[text block,anchor=south,text width=8cm] at (cell.south) {\textbf{Task:} infer {\color{StrongBlue} causal relationships} from \color{ActionRed}{observed high-dimesional phenotypes (\textbf{effects})}};
+  \node[text block,anchor=south,text width=8cm] at (cell.south) {\textbf{Task:} infer {\color{StrongBlue} causal relationships} from \color{ActionRed}{observed high-dimensional phenotypes (\textbf{effects})}};
  }
  \uncover<2>{
   \node[text block,anchor=south,text width=8cm] at (cell.south) {\textbf{Context-specificity:} the same actors can have different relationships in different \textbf{\color{ActionRed} contexts}.};
@@ -213,15 +220,15 @@
     }
     
     \only<4>{
-      \draw[very thick, ActionRed] (a.north west) to (a.south east);
+      \draw[line width=1mm, ActionRed] (a.north west) to (a.south east);
       \node[anchor=west, ActionRed] at (a.east) {$\Delta$};
     }
     \only<5>{
-      \draw[very thick, ActionRed] (b.north west) to (b.south east);
+      \draw[line width=1mm, ActionRed] (b.north west) to (b.south east);
       \node[anchor=west, ActionRed] at (b.east) {$\Delta$};
     }
     \only<6>{
-      \draw[very thick, ActionRed] (c.north west) to (c.south east);
+      \draw[line width=1mm, ActionRed] (c.north west) to (c.south east);
       \node[anchor=west, ActionRed] at (c.east) {$\Delta$};
     }
     
@@ -264,7 +271,7 @@
   $C\Delta$ \& |[fill=StrongGreen]| \&  |[fill=StrongGreen]| \& |[fill=StrongRed]| \& |[fill=StrongRed]| \& |[fill=StrongBlue]| \& |[fill=StrongBlue]| \& |[fill=StrongGreen]| \& |[fill=StrongGreen]| \\
   };
  \uncover<2->{
-	\node (de) at (8,0) {Differential Expression};
+	\node (de) at (8,0) {Differential expression};
 	\matrix (demx) [anchor=north, matrix of nodes] at (de.south) {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
   $A\Delta$ \& |[fill=black]| \&  |[fill=black]| \& |[fill=black]| \& |[fill=black]| \& \& |[fill=black]| \& |[fill=black]| \& |[fill=black]| \\
@@ -273,7 +280,7 @@
  };
  }
  \uncover<3->{
-	\node (lode) at (4,-4) {Differential Expression Likelihood Ratio $\left( R : R_{ae} = \log \frac{ \mathbb P( D_{ae} | H_1 ) }{ \mathbb P( D_{ae} | H_0 ) } \right)$};
+	\node (lode) at (4,-4) {Differential expression log likelihood ratio $\left( R : R_{ae} = \log \frac{ \mathbb P( D_{ae} | H_1 ) }{ \mathbb P( D_{ae} | H_0 ) } \right)$};
 	\matrix (lodemx) [anchor=north, matrix of nodes] at (lode.south) {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
   $A\Delta$ \& |[fill=black!60]| \&  |[fill=black!70]| \& |[fill=black!50]| \& |[fill=black!70]| \& |[fill=black!10]| \& |[fill=black!60]| \& |[fill=black!50]| \& |[fill=black!65]| \\
@@ -323,9 +330,9 @@
  }
 
 \end{tikzpicture}
-\pause
-\column{0.4\textwidth}
 
+\column{0.4\textwidth}
+\uncover<2>{
 \begin{tikzpicture}[very thick, ampersand replacement=\&]
 
  {\color{StrongBlue} 
@@ -351,10 +358,10 @@
  \node (formula) [below=of theta] {${\color{StrongGreen} F} = {\color{StrongBlue} \Gamma} {\color{StrongRed}\Theta}$};
 
 \end{tikzpicture}
-
+}
 \end{columns}
 
-{\tiny \parencite{Markowetz01012005}} %TODO: Add more
+{\small \textcite{Markowetz01012005}}
 \end{frame}
 
 %%% FRAMEBREAK %%%
@@ -458,23 +465,23 @@
  \node[fit=(context1) (context2)] (ghost) {};
 
  \uncover<2->{
-  \node[anchor=west] (gamma1) at (context1.east) {$\Gamma^1:$};
-  \matrix[matrix of nodes, anchor=west] at (gamma1.east) {
+  \matrix[matrix of nodes, anchor=west] (gamma1) at (context1.east) {
    |[fill]| \& |[fill]| \& |[fill]| \\
     \& |[fill]| \&  \\
     \&  \& |[fill]| \\
   };
+  \node[anchor=south] at (gamma1.north) {$\Gamma^1$};
 
-  \node[anchor=west] (gamma2) at (context2.east) {$\Gamma^2:$};
-  \matrix[matrix of nodes, anchor=west] at (gamma2.east) {
+  \matrix[matrix of nodes, anchor=west] (gamma2) at (context2.east) {
    |[fill]| \&  \&  \\
     \& |[fill]| \&  \\
     \&  \& |[fill]| \\
   };
+  \node[anchor=south] at (gamma2.north) {$\Gamma^2$};
  }
  
  \uncover<3->{
- \matrix (mx) [matrix of nodes, fill=white, nodes ={black,yshift=1mm}] at (4cm,-45mm) {
+ \matrix (mx) [matrix of nodes, fill=white, nodes ={black}] at (5cm,-45mm) {
   \& $e_1$ \& $e_2$ \& $e_3$ \& $e_4$ \& $e_5$ \& $e_6$ \&  $e_7$ \& $e_8$ \\
   $A\Delta$ \& \& \& |[fill=black]| \& |[fill=black]| \\
   $B\Delta$ \& |[fill=black]| \& |[fill=black]| \\
@@ -509,14 +516,16 @@
  }_{\text{NEM Likelihood}}
 \]
 \pause
+
+{\small \textcite{tresch2008structure}:}
 \[
 \log L_\text{NEM}(\Gamma^i, \Theta^i) = \sum_{(a,e) \in \mathcal A \times \mathcal E} \log \mathbb P ( D_{ae} | (\Gamma^i \Theta^i)_{ae} ) \pause = \mathsf{tr} ( \Gamma^i \Theta^i R^T ) + c
 \]
 \begin{center}\small
-$R=$ likelihood ratio matrix: $R_{ae} = \log \frac{ \mathbb P( D_{ae} | H_1 ) }{ \mathbb P( D_{ae} | H_0 ) }$
+$R=$ log likelihood ratio matrix: $R_{ae} = \log \frac{ \mathbb P( D_{ae} | H_1 ) }{ \mathbb P( D_{ae} | H_0 ) }$
 \end{center}
 \pause
-\[ \cdots \]
+\[ \vdots \]
 \[
 \log L_\text{CSNEM}(\Gamma^1, \ldots, \Gamma^k, \Theta^1, \ldots, \Theta^k) = \mathsf{tr}( \Gamma \Theta R^{*T} ) + c^*
 \]
@@ -551,6 +560,8 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
 \[
 \log L( \Gamma \Theta ) + \underbrace{\sum_{(a,b) \in \mathcal A \times \mathcal A} \log \mathbb P(\Gamma_{a,b})}_{\text{edge-wise prior}} + \log \mathbb P( \Theta )
 \]
+\vfill
+Bioconductor R package: \texttt{nem} \parencite{frohlich2008analyzing}
 \end{frame}
 
 %%% FRAMEBREAK %%%
@@ -560,6 +571,7 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
 % > Beta parameter for noise
 
 \begin{frame}{Evaluation on simulated data}
+ \pause
  \begin{tikzpicture}
   \node (nakt) at (0mm,20mm) {$n_\mathcal{A}, k_\text{true}$};
   
@@ -577,7 +589,7 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
   
   \pause
   
-  \node[text block] (tf) at (80mm, 0) {$F_\text{true}$};
+  \node[text block] (tf) at (80mm, 0) {True effect matrix};%{$F_\text{true}$};
   \draw[link] (tnet) to (tf);
 
   \pause
@@ -605,7 +617,7 @@ Use MC-EMiNEM \parencite{niederberger2012mc} to solve the modified NEM learning 
   \draw[link] (gs) to (cmpg);
   
   \pause
-  \node[text block] (lf) at (110mm,-40mm) {$F_\text{learned}$};
+  \node[text block] (lf) at (110mm,-40mm) {Learned effect matrix};%{$F_\text{learned}$};
   \draw[link] (lnet) to (lf);
   
   \pause
@@ -700,7 +712,7 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
       (125mm,3mm) circle[radius=5mm]
       (125mm,-11mm) circle[radius=5mm];
    
-    \node[text block, text width=8cm] at (60mm,-4cm) {Msn2 is known to be regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress
+    \node[text block, text width=8cm] at (60mm,-4cm) {Msn2 is regulated by Hog1, Pde2, and Snf1, and Pde2 plays a more significant role in regulating Msn2 during salt stress
     \scriptsize \parencite{chasman2014pathway,
      lee2008yeast,%18793336, 
 mayordomo2002convergence,%12093809,
@@ -799,10 +811,9 @@ rep2000transcriptional%[PMID:  10722658,
  \end{itemize}
  \pause
  \begin{block}{Acknowledgments}
-   Mark Craven, Audrey P. Gash, Elisha Yi-Hsuan Ho \\
    \scriptsize
    \color{UWRed}
-   This research was supported by NIH/NLM grant T15 LM0007359, NIH/NIAID grant U54 AI117954, and NIH/NIGMS grant R01 GM083989.
+   NIH/NLM grant T15 LM0007359, NIH/NIAID grant U54 AI117954, and NIH/NIGMS grant R01 GM083989.
 %   CIBM, Grant T15 LM0077359 from the National Library of Medicine, National~Institutes~of~Health
  \end{block}
 \end{frame}
