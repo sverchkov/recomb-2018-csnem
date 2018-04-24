@@ -638,6 +638,58 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
 
 %%% FRAMEBREAK %%%
 
+\begin{frame}{Synthesis}
+  \centering
+  \begin{tikzpicture}[very thick]
+     \path pic {colormap};
+     
+     \node[var,MyC] (a1) at (-12cm,1cm) {A};
+     \node[var,MyC] (b1) at (-13cm,0) {B};
+     \node[var,MyC] (c1) at (-11cm,0) {C};
+
+     \draw[link,MyC] (a1) to (b1);
+     \draw[link,MyC] (a1) to (c1);
+     
+     \node[var,MyM] (a2) at (-8cm,1cm) {A};
+     \node[var,MyM] (b2) at (-9cm,0) {B};
+     \node[var,MyM] (c2) at (-7cm,0) {C};
+
+     \draw[link,MyM] (a2) to (b2);
+     \draw[link,MyM] (b2) to (c2);
+     
+     \node[var,MyY] (a3) at (-4cm,1cm) {A};
+     \node[var,MyY] (b3) at (-5cm,0) {B};
+     \node[var,MyY] (c3) at (-3cm,0) {C};
+
+     \draw[link,MyY] (c3) to (b3);
+     
+     \uncover<2->{
+       \node[anchor=west] at (a1.east) {$\{ A \}$};
+       \node[anchor=west] at (a2.east) {$\{ A \}$};
+       \node[anchor=west] at (a3.east) {$\{ A \}$};
+       \node[anchor=north] at (b1.south) {$\{A,B\}$};
+       \node[anchor=north] at (b2.south) {$\{A,B\}$};
+       \node[anchor=north] at (b3.south) {$\{B,C\}$};
+       \node[anchor=north] at (c1.south) {$\{A,C\}$};
+       \node[anchor=north] at (c2.south) {$\{A,B,C\}$};
+       \node[anchor=north] at (c3.south) {$\{C\}$};
+     }
+  \end{tikzpicture}
+  \vfill
+  \uncover<3->{\begin{tikzpicture}
+    \node[var] (a) {A};
+    \node[var,MyB] (b12) at (-1cm,-1cm) {B};
+    \draw[link,MyB] (a) to (b12);
+    \node[var,MyM] (c2) at (0,-2cm) {C};
+    \draw[link,MyM] (b12) to (c2);
+    \node[var,MyY] (c3) at (1.5cm,-0.5cm) {C};
+    \node[var,MyY] (b3) at (1.5cm,-1.5cm) {B};
+    \draw[link,MyY] (c3) to (b3);
+  \end{tikzpicture}}
+\end{frame}
+
+%%% FRAMEBREAK %%%
+
 \begin{frame}{Saccharomyces cerevisiae salt stress data}
 \begin{itemize}
  \item Wild type strains and 28 single-gene knockout strains
@@ -819,7 +871,54 @@ rep2000transcriptional%[PMID:  10722658,
 \end{frame}
 
 %%% FRAMEBREAK %%%
-%
+
+\begin{frame}{Identifiability}
+  \begin{tikzpicture}[very thick]
+     \path pic {colormap};
+     
+     \node[var,MyC] (a1) at (-12cm,1cm) {A};
+     \node[var,MyC] (b1) at (-13cm,0) {B};
+     \node[var,MyC] (c1) at (-11cm,0) {C};
+
+     \draw[link,MyC] (a1) to (b1);
+     \draw[link,MyC] (a1) to (c1);
+     
+     \node[var,MyM] (a2) at (-8cm,1cm) {A};
+     \node[var,MyM] (b2) at (-9cm,0) {B};
+     \node[var,MyM] (c2) at (-7cm,0) {C};
+
+     \draw[link,MyM] (a2) to (b2);
+     \draw[link,MyM] (b2) to (c2);
+     
+     \node[var,MyY] (a3) at (-4cm,1cm) {A};
+     \node[var,MyY] (b3) at (-5cm,0) {B};
+     \node[var,MyY] (c3) at (-3cm,0) {C};
+
+     \draw[link,MyY] (c3) to (b3);
+     
+     \uncover<1->{
+       \node[anchor=west] at (a1.east) {$\{ A \}$};
+       \node[anchor=west] at (a2.east) {$\{ A \}$};
+       \node[anchor=west] at (a3.east) {$\{ A \}$};
+       \node[anchor=north] at (b1.south) {$\{A,B\}$};
+       \node[anchor=north] at (b2.south) {$\{A,B\}$};
+       \node[anchor=north] at (b3.south) {$\{B,C\}$};
+       \node[anchor=north] at (c1.south) {$\{A,C\}$};
+       \node[anchor=north] at (c2.south) {$\{A,B,C\}$};
+       \node[anchor=north] at (c3.south) {$\{C\}$};
+     }
+  \end{tikzpicture}
+  \begin{itemize}
+    \item Set of ancestries: $\{ \{A \}, \{C\}, \{A,B \}, \{B, C\}, \{A,B,C\} \}$
+    \item CSNEMs with identical sets of actor ancestries can express the same effect patterns.
+  \end{itemize}  
+\end{frame}
+
+%\begin{frame}{Ancestry subset relation graph}
+%  \begin{tikzpicture}
+%  \end{tikzpicture}
+%\end{frame}
+
 %\begin{frame}{Synthesis and identifiability}
 %\centering
 %\begin{tikzpicture}[very thick, ampersand replacement=\&]
