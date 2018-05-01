@@ -680,10 +680,12 @@ $n_\mathcal{A}=20; k_\text{true}=3;$ low noise ($\beta=10$)
     \node[var] (a) {A};
     \node[var,MyB] (b12) at (-1cm,-1cm) {B};
     \draw[link,MyB] (a) to (b12);
+    \node[var,MyC] (c1) at (1cm,-1cm) {C};
+    \draw[link,MyC] (a) to (c1);
     \node[var,MyM] (c2) at (0,-2cm) {C};
     \draw[link,MyM] (b12) to (c2);
-    \node[var,MyY] (c3) at (1.5cm,-0.5cm) {C};
-    \node[var,MyY] (b3) at (1.5cm,-1.5cm) {B};
+    \node[var,MyY] (c3) at (2.5cm,-0.5cm) {C};
+    \node[var,MyY] (b3) at (2.5cm,-1.5cm) {B};
     \draw[link,MyY] (c3) to (b3);
   \end{tikzpicture}}
 \end{frame}
@@ -909,7 +911,7 @@ rep2000transcriptional%[PMID:  10722658,
      }
   \end{tikzpicture}
   \begin{itemize}
-    \item Set of ancestries: $\{ \{A \}, \{C\}, \{A,B \}, \{B, C\}, \{A,B,C\} \}$
+    \item Set of ancestries: $\{ \{A \}, \{C\}, \{A,B \}, \{A,C\}, \{B, C\}, \{A,B,C\} \}$
     \item CSNEMs with identical sets of actor ancestries can express the same effect patterns.
   \end{itemize}  
 \end{frame}
